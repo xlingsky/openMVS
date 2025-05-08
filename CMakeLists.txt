@@ -101,7 +101,7 @@ SET(CMAKE_POSITION_INDEPENDENT_CODE ON)
 SET_PROPERTY(GLOBAL PROPERTY GLOBAL_DEPENDS_NO_CYCLES ON)
 
 # Define helper functions and macros.
-INCLUDE(build/Utils.cmake)
+INCLUDE(cmakes/Utils.cmake)
 
 # Init session with macros defined in Utils.cmake
 GetOperatingSystemArchitectureBitness(SYSTEM)
@@ -110,7 +110,7 @@ ConfigCompilerAndLinker()
 ConfigLibrary()
 
 # Find dependencies:
-SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/build/Modules)
+SET(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmakes/Modules)
 
 # Find required packages
 SET(OpenMVS_EXTRA_INCLUDES "")
@@ -304,7 +304,7 @@ INSTALL(EXPORT OpenMVSTargets
 	DESTINATION "${INSTALL_CMAKE_DIR}")
 
 # Install configuration file
-CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/build/Templates/ConfigLocal.h.in" "${CMAKE_BINARY_DIR}/ConfigLocal.h")
+CONFIGURE_FILE("${CMAKE_CURRENT_SOURCE_DIR}/cmakes/Templates/ConfigLocal.h.in" "${CMAKE_BINARY_DIR}/ConfigLocal.h")
 INSTALL(FILES "${CMAKE_BINARY_DIR}/ConfigLocal.h" DESTINATION "${INSTALL_INCLUDE_DIR}")
 
 # Create the OpenMVSConfig.cmake and OpenMVSConfigVersion files
@@ -314,7 +314,7 @@ write_basic_package_version_file("${PROJECT_BINARY_DIR}/OpenMVSConfigVersion.cma
 	COMPATIBILITY AnyNewerVersion)
 SET(INSTALL_INCLUDE_DIR_IN ${INSTALL_INCLUDE_DIR_PREFIX} ${OpenMVS_EXTRA_INCLUDES})
 SET(INSTALL_CMAKE_DIR_IN ${INSTALL_CMAKE_DIR_PREFIX})
-configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/build/Templates/OpenMVSConfig.cmake.in"
+configure_package_config_file("${CMAKE_CURRENT_SOURCE_DIR}/cmakes/Templates/OpenMVSConfig.cmake.in"
 	"${PROJECT_BINARY_DIR}/OpenMVSConfig.cmake"
 	INSTALL_DESTINATION ${PROJECT_BINARY_DIR}
 	NO_SET_AND_CHECK_MACRO)
@@ -326,7 +326,7 @@ INSTALL(FILES
 
 # uninstall target
 CONFIGURE_FILE(
-	"${CMAKE_CURRENT_SOURCE_DIR}/build/Templates/cmake_uninstall.cmake.in"
+	"${CMAKE_CURRENT_SOURCE_DIR}/cmakes/Templates/cmake_uninstall.cmake.in"
 	"${CMAKE_CURRENT_BINARY_DIR}/cmake_uninstall.cmake"
 	IMMEDIATE @ONLY)
 
